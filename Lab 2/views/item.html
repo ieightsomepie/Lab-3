@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>France Description</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/stuffStyle.css">
+</head>
+<body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="" style="">
+
+    <div class="container">
+        <div class="section flow-text" id="stuffDetail">
+            <h1><b>Description of France</b></h1>
+            <a class="waves-effect waves-light btn" href = "/stuff">Back to Countries
+                <i class="material-icons left">arrow_back</i>
+            </a>
+            <div class="divider"></div>
+            <div class="section">
+                <h5><b>Population</b></h5>
+                <p>67.5 million</p>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <h5><b>GDP</b></h5>
+                <p>$2.937 trillion</p>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <h5><b>Description</b></h5>
+                <p style="font-size:medium">France, in Western Europe, encompasses medieval cities, alpine villages and Mediterranean beaches. Paris, its capital, is famed for its fashion houses, classical art museums including the Louvre and monuments like the Eiffel Tower. The country is also renowned for its wines and sophisticated cuisine. Lascaux’s ancient cave drawings, Lyon’s Roman theater and the vast Palace of Versailles attest to its rich history.</p>
+        </div>
+
+        <div class="section" id="stuffControls">
+            <a class="btn-large waves-effect waves-light orange left modal-trigger" href="#stuffEdit">
+                <i class="material-icons right">edit</i>
+                Edit
+            </a>
+            <a class="btn-large waves-effect waves-light red right">
+                <i class="material-icons right">delete</i>
+                Delete
+            </a>
+        </div>
+
+
+        <div class="modal" id="stuffEdit" tabindex="0" style="z-index: 1003; display: none; opacity: 0; top: 4%; transform: scaleX(0.8) scaleY(0.8);">
+
+            <div class="modal-content">
+
+                <h2>Edit Country:</h2>
+                <form>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label for="nameInput">Country Name:</label>
+                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="popInput" class="active">Population:</label>
+                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="GDPInput" class="active">GDP:</label>
+                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="descriptionInput">Country Description:</label>
+                            <input type="text" name="description" id="descriptionInput" data-length="100">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light " type="submit">
+                            <i class="material-icons right">send</i>
+                            Submit
+                        </button>
+                        <button class="modal-close waves-effect waves-green btn-flat">Never Mind</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- initialize Materialize elements -->
+    <script> M.AutoInit();</script>
+
+
+
+</body>
+</html>
