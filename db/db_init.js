@@ -7,7 +7,7 @@ db.execute(drop_stuff_table_sql);
 
 //Creates the table
 const create_table = `
-REATE TABLE Countries (
+CREATE TABLE Countries (
     CountryID INT NOT NULL AUTO_INCREMENT,
     country_name VARCHAR(45) NOT NULL,
     country_population VARCHAR(45) NOT NULL,
@@ -15,3 +15,16 @@ REATE TABLE Countries (
     PRIMARY KEY (CountryID)
     );
 `
+const read_stuff_table_sql = "SELECT * FROM Countries";
+
+db.execute(read_stuff_table_sql, 
+    (error, results) => {
+        if (error) 
+            throw error;
+
+        console.log("Table 'Countries' initialized with:")
+        console.log(results);
+    }
+);
+
+db.end();
