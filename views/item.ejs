@@ -21,22 +21,20 @@
             <a class="waves-effect waves-light btn" href = "/stuff">Back to Countries
                 <i class="material-icons left">arrow_back</i>
             </a>
-            <div class="divider"></div>
-            <div class="section">
-                <h5><b>Population</b></h5>
-                <p>67.5 million</p>
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-                <h5><b>GDP</b></h5>
-                <p>$2.937 trillion</p>
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-                <h5><b>Description</b></h5>
-                <p style="font-size:medium">France, in Western Europe, encompasses medieval cities, alpine villages and Mediterranean beaches. Paris, its capital, is famed for its fashion houses, classical art museums including the Louvre and monuments like the Eiffel Tower. The country is also renowned for its wines and sophisticated cuisine. Lascaux’s ancient cave drawings, Lyon’s Roman theater and the vast Palace of Versailles attest to its rich history.</p>
-        </div>
-
+            <table>
+                <tr>
+                    <th>Country:</th>
+                    <td><%= country_name %></td>
+                </tr>
+                <tr>
+                    <th>Population:</th>
+                    <td><%= country_population %></td>
+                </tr>
+                <tr>
+                    <th>GDP:</th>
+                    <td><%= country_gdp %></td>
+                </tr>
+            </table>
         <div class="section" id="stuffControls">
             <a class="btn-large waves-effect waves-light orange left modal-trigger" href="#stuffEdit">
                 <i class="material-icons right">edit</i>
