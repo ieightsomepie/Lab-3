@@ -31,12 +31,21 @@ app.get( "/stuff", ( req, res ) => {
     db.execute(read_stuff_all_sql, (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
-        else
-            res.send(results);
+        else {
+            res.render('stuff', { inventory : results });
+        }
     });
-});
+} );
 
 // define a route for the item detail page
+const read_item_sql = `
+    SELECT 
+        country_name, country_population, country_gdp 
+    FROM
+        Countries
+    WHERE
+        CountryID = 1
+`
 app.get( "/stuff/item/:id", ( req, res ) => {
     db.execute(read_item_sql, [req.params.id], (error, results) => {
         if (error)
