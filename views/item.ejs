@@ -54,33 +54,26 @@
             <div class="modal-content">
 
                 <h2>Edit Country:</h2>
-                <form method="post" action="/stuff/item/<%= CountryID%>">
+                <form method="post" action="/stuff/item/<%= CountryID%>"> <!-- default action is the page's URL --> 
                     <div class="row">
-                        <div class="input-field col s4">
+                        <div class="input-field col s6">
                             <label for="nameInput">Country Name:</label>
-                            <input type="text" name="country_name" id="nameInput" class="validate" data-length="32" value="<%= country_name%>" required>
+                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" value="<%= country_name%>" required>
                         </div>
-                        <div class="input-field col s4">
-                            <label for="popInput" class="active">Population:</label>
-                            <input type="text" name="country_population" id="populationInput" class="validate" data-length="32" value="<%= country_population%>" required>
+                        <div class="input-field col s6">
+                            <label for="nameInput">Population:</label>
+                            <input type="text" name="population" id="populationInput" class="validate" data-length="32" value="<%= country_population%>" required>
                         </div>
-                        <div class="input-field col s4">
-                            <label for="GDPInput" class="active">GDP:</label>
-                            <input type="text" name="country_gdp" id="gdpInput" class="validate" data-length="32" value="<%= country_gdp%>">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label for="descriptionInput">Country Description:</label>
-                            <input type="text" name="description" id="descriptionInput" data-length="100">
+                        <div class="input-field col s6">
+                            <label for="nameInput">GDP:</label>
+                            <input type="text" name="gdp" id="gdpInput" class="validate" data-length="32" value="<%= country_gdp%>" required>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn waves-effect waves-light " type="submit">
-                            <i class="material-icons right">send</i>
-                            Submit
-                        </button>
-                        <button class="modal-close waves-effect waves-green btn-flat">Never Mind</button>
+                        <button class="btn waves-effect waves-light " type="submit"><i
+                                class="material-icons right">send</i>Submit</button>
+
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Never Mind</a>
                     </div>
                 </form>
             </div>

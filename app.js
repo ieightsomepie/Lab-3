@@ -110,8 +110,8 @@ const update_item_sql = `
     WHERE
         CountryID = ?
 `
-app.post("/stuff/item/:CountryID", ( req, res ) => {
-    db.execute(update_item_sql, [req.body.country_name, req.body.country_population, req.body.country_gdp, req.params.id], (error, results) => {
+app.post("/stuff/item/:id", ( req, res ) => {
+    db.execute(update_item_sql, [req.body.name, req.body.population, req.body.gdp, req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
