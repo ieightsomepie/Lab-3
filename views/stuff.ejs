@@ -16,43 +16,58 @@
 <body>
     <div class="container">
       <h1>Country Info</h1>
-      <tbody>
-        <% for (let i = 0; i < inventory.length; i++) { %>
-        <tr>
-            <td><%= inventory[i].item %></td>
-            <td><%= inventory[i].quantity %></td>
-            <td>
-                <a class="btn-small waves-effect waves-light" href=<%= "/stuff/item/" + inventory[i].id %> ><i
-                        class="material-icons right">edit</i>Info/Edit</a>
-                <a class="btn-small waves-effect waves-light red"><i
-                        class="material-icons right">delete</i>Delete</a>
-            </td>
-        </tr>
-        <% } %>
-    </tbody>
+      <table>
+        <thead>
+
+            <tr>
+                <th>Country</th>
+                <th>Population</th>
+                <th>GDP</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <% for (let i = 0; i < Countries.length; i++) { %>
+            
+            <tr>
+                <td><%=Countries[i].country_name %></td>
+                <td><%=Countries[i].country_population %></td>
+                <td><%=Countries[i].country_gdp %></td>
+                <td>
+                    <a class="btn-small waves-effect waves-light" 
+                        href=<%="/stuff/item/" + Countries[i].CountryID %>>
+                        <i class="material-icons right">edit</i>
+                        Info/Edit
+                    </a>
+                    <a class="btn-small waves-effect waves-light red" href=<%="/stuff/item/" + Countries[i].CountryID+"/delete" %>>
+                      <i class="material-icons right">delete</i>
+                      Delete
+                    </a>
+                </td>
+            </tr>
+            <% } %>
+
+        </tbody>
+    </table>
           <h1>Add Country</h1>
-          <form>
+          <form method="post" action="/stuff"> <!-- default action is the page's URL --> 
             <div class="row">
-              <div class="input-field col s6">
-                <i class="material-icons prefix">assistant_photo</i>
-                <input id="country_name" type="text" class="validate">
-                <label for="country_name">Country</label>
-              </div>
-              <div class="input-field col s6">
-                <i class="material-icons prefix">face</i>
-                <input id="Population" type="text" class="validate">
-                <label for="Population">Population</label>
-              </div>
-              <div class="input-field col s6">
-                <i class="material-icons prefix">attach_money</i>
-                <input id="gdp" type="text" class="validate">
-                <label for="gdp">GDP</label>
+                <div class="input-field col s6">
+                    <label for="nameInput">Country Name:</label>
+                    <input type="text" name="country_name" id="nameInput" class="validate" data-length="32" required>
+                </div>
+                <div class="input-field col s6">
+                  <label for="nameInput">Country Population:</label>
+                  <input type="text" name="country_population" id="nameInput" class="validate" data-length="32" required>
+                </div>
+                <div class="input-field col s6">
+                  <label for="nameInput">Country GDP:</label>
+                  <input type="text" name="country_gdp" id="nameInput" class="validate" data-length="32" required>
               </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </form>
+            <button class="btn waves-effect waves-light" type="submit"><i
+                    class="material-icons right">send</i>Submit</button>
+        </form>
     </div>
 </body>
 </html>

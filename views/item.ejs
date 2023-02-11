@@ -13,11 +13,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/stuffStyle.css">
 </head>
-<body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="" style="">
+<body>
 
     <div class="container">
         <div class="section flow-text" id="stuffDetail">
-            <h1><b>Description of France</b></h1>
+            <h1><b>Country Info</b></h1>
             <a class="waves-effect waves-light btn" href = "/stuff">Back to Countries
                 <i class="material-icons left">arrow_back</i>
             </a>
@@ -29,10 +29,13 @@
                 <tr>
                     <th>Population:</th>
                     <td><%= country_population %></td>
+
                 </tr>
                 <tr>
                     <th>GDP:</th>
-                    <td><%= country_gdp %></td>
+                    <td>
+                        <%= country_gdp %>
+                    </td>
                 </tr>
             </table>
         <div class="section" id="stuffControls">
@@ -40,9 +43,8 @@
                 <i class="material-icons right">edit</i>
                 Edit
             </a>
-            <a class="btn-large waves-effect waves-light red right">
-                <i class="material-icons right">delete</i>
-                Delete
+            <a class="btn-large waves-effect waves-light red right"  href="/stuff/item/<%= CountryID %>/delete" %>>
+                <i class="material-icons right">delete</i>Delete
             </a>
         </div>
 
@@ -52,19 +54,19 @@
             <div class="modal-content">
 
                 <h2>Edit Country:</h2>
-                <form>
+                <form method="post" action="/stuff/item/<%= CountryID%>">
                     <div class="row">
                         <div class="input-field col s4">
                             <label for="nameInput">Country Name:</label>
-                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                            <input type="text" name="country_name" id="nameInput" class="validate" data-length="32" value="<%= country_name%>" required>
                         </div>
                         <div class="input-field col s4">
                             <label for="popInput" class="active">Population:</label>
-                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                            <input type="text" name="country_population" id="populationInput" class="validate" data-length="32" value="<%= country_population%>" required>
                         </div>
                         <div class="input-field col s4">
                             <label for="GDPInput" class="active">GDP:</label>
-                            <input type="text" name="name" id="nameInput" class="validate" data-length="32" required="">
+                            <input type="text" name="country_gdp" id="gdpInput" class="validate" data-length="32" value="<%= country_gdp%>">
                         </div>
                     </div>
                     <div class="row">
