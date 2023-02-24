@@ -2,9 +2,19 @@
 const express = require( "express" );
 const logger = require("morgan");
 const app = express();
-const port = 8080;
-const db = require('./db/db_connection');
-
+const port = process.env.PORT || 8080;
+const db = require('./db/db_pool');
+const helmet = require("helmet");
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'cdnjs.cloudflare.com'],
+        styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
+        fontSrc: ["'self'", 'fonts.googleapis.com']
+      }
+    }
+  })); 
 // Configure Express to use EJS
 app.set( "views",  __dirname + "/views");
 app.set( "view engine", "ejs" );
