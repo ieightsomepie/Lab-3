@@ -5,6 +5,8 @@ const app = express();
 const port = process.env.PORT || 8080;
 const db = require('./db/db_pool');
 const helmet = require("helmet");
+const { auth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
 app.use(helmet({
     contentSecurityPolicy: {
       directives: {
@@ -15,6 +17,22 @@ app.use(helmet({
       }
     }
   })); 
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'a long, randomly-generated string stored in env',
+    baseURL: 'http://localhost:8080',
+    clientID: 'f8neTQ7DoH9dT6GS42mqVEPLXGTor6wa',
+    issuerBaseURL: 'https://dev-avusa648sputhtbc.us.auth0.com'
+};
+  
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+  
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+  });
+  
 // Configure Express to use EJS
 app.set( "views",  __dirname + "/views");
 app.set( "view engine", "ejs" );
@@ -27,7 +45,10 @@ app.use( express.urlencoded({ extended: false }) );
 
 // define middleware that serves static resources in the public directory
 app.use(express.static(__dirname + '/public'));
-
+// req.isAuthenticated is provided from the auth router
+app.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  });
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
     res.render('index');
