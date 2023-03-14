@@ -66,9 +66,11 @@ const read_stuff_all_sql = `
         CountryID, country_name, country_population, country_gdp
     FROM
         Countries
+    WHERE
+        userid = ?
 `
 app.get( "/stuff", requiresAuth(),( req, res ) => {
-    db.execute(read_stuff_all_sql, (error, results) => {
+    db.execute(read_stuff_all_sql, [req.oidc.user.email], (error, results) => {
         console.log(results)
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -86,9 +88,11 @@ const read_stuff_item_sql = `
         Countries
     WHERE 
         CountryID = ?    
+    AND
+        userid = ?
 `
 app.get( "/stuff/item/:id", requiresAuth(),( req, res ) => {
-    db.execute(read_stuff_item_sql, [req.params.id], (error, results) => {
+    db.execute(read_stuff_item_sql, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error) {
             res.status(500).send(error); // Internal Server Error
         } else if (results.length == 0) {
@@ -109,9 +113,11 @@ const delete_item_sql = `
         Countries
     WHERE
         CountryID = ?
+    AND
+        userid = ?
 `
 app.get("/stuff/item/:id/delete", requiresAuth(),( req, res ) => {
-    db.execute(delete_item_sql, [req.params.id], (error, results) => {
+    db.execute(delete_item_sql, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
@@ -122,12 +128,12 @@ app.get("/stuff/item/:id/delete", requiresAuth(),( req, res ) => {
 // define a route for item Create
 const create_item_sql = `
     INSERT INTO Countries
-        (country_name, country_population, country_gdp)
+        (country_name, country_population, country_gdp, userid)
     VALUES
-        (?, ?, ?)
+        (?, ?, ?, ?)
 `
 app.post("/stuff", requiresAuth(),( req, res ) => {
-    db.execute(create_item_sql, [req.body.country_name, req.body.country_population, req.body.country_gdp], (error, results) => {
+    db.execute(create_item_sql, [req.body.country_name, req.body.country_population, req.body.country_gdp, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
@@ -146,9 +152,11 @@ const update_item_sql = `
         country_gdp = ?
     WHERE
         CountryID = ?
+    AND
+        userid = ?
 `
 app.post("/stuff/item/:id", requiresAuth(),( req, res ) => {
-    db.execute(update_item_sql, [req.body.name, req.body.population, req.body.gdp, req.params.id], (error, results) => {
+    db.execute(update_item_sql, [req.body.name, req.body.population, req.body.gdp, req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
