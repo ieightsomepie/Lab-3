@@ -1,6 +1,8 @@
 //set up the server
 const express = require( "express" );
 const logger = require("morgan");
+const dotenv = require('dotenv');
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 const db = require('./db/db_pool');
@@ -16,14 +18,14 @@ app.use(helmet({
         fontSrc: ["'self'", 'fonts.googleapis.com']
       }
     }
-  })); 
+})); 
 const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: 'a long, randomly-generated string stored in env',
-    baseURL: 'http://localhost:8080',
-    clientID: 'f8neTQ7DoH9dT6GS42mqVEPLXGTor6wa',
-    issuerBaseURL: 'https://dev-avusa648sputhtbc.us.auth0.com'
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: process.env.AUTH0_BASE_URL,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL
 };
   
 // auth router attaches /login, /logout, and /callback routes to the baseURL
@@ -31,7 +33,7 @@ app.use(auth(config));
   
 app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user));
-  });
+});
   
 // Configure Express to use EJS
 app.set( "views",  __dirname + "/views");
@@ -48,7 +50,7 @@ app.use(express.static(__dirname + '/public'));
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-  });
+});
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
     res.render('index');

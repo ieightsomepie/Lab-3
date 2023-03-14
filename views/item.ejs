@@ -14,6 +14,28 @@
     <link rel="stylesheet" href="/stylesheets/stuffStyle.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo">Stuff Manager</a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <!-- Main nav, hidden for small screens -->
+                <ul id="desktop-nav" class="right hide-on-med-and-down">
+                    <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+                    <li><a href="/stuff"><i class="material-icons left">list</i>Inventory</a></li>
+                    <li><a href="/login" class="btn blue">Login</a></li>
+                    <li><a href="/logout" class="btn red">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Mobile nav menu, shown when menu button clicked -->
+        <ul id="mobile-nav" class="sidenav">
+            <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+            <li><a href="/stuff"><i class="material-icons left">list</i>Inventory</a></li>
+            <li><a href="/login" class="btn blue">Login</a></li>
+            <li><a href="/logout" class="btn red">Logout</a></li>
+        </ul>
+    </header>
 
     <div class="container">
         <div class="section flow-text" id="stuffDetail">
