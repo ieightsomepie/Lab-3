@@ -12,6 +12,7 @@ CREATE TABLE Countries (
     country_name VARCHAR(45) NOT NULL,
     country_population VARCHAR(45) NOT NULL,
     country_gdp VARCHAR(45) NOT NULL,
+    userid VARCHAR(50) NULL,
     PRIMARY KEY (CountryID)
     );
 `

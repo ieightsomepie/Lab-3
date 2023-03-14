@@ -30,7 +30,11 @@ const config = {
   
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
-  
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.oidc.isAuthenticated();
+    res.locals.user = req.oidc.user;
+    next();
+})
 app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user));
 });
@@ -63,7 +67,7 @@ const read_stuff_all_sql = `
     FROM
         Countries
 `
-app.get( "/stuff", ( req, res ) => {
+app.get( "/stuff", requiresAuth(),( req, res ) => {
     db.execute(read_stuff_all_sql, (error, results) => {
         console.log(results)
         if (error)
@@ -83,7 +87,7 @@ const read_stuff_item_sql = `
     WHERE 
         CountryID = ?    
 `
-app.get( "/stuff/item/:id", ( req, res ) => {
+app.get( "/stuff/item/:id", requiresAuth(),( req, res ) => {
     db.execute(read_stuff_item_sql, [req.params.id], (error, results) => {
         if (error) {
             res.status(500).send(error); // Internal Server Error
@@ -106,7 +110,7 @@ const delete_item_sql = `
     WHERE
         CountryID = ?
 `
-app.get("/stuff/item/:id/delete", ( req, res ) => {
+app.get("/stuff/item/:id/delete", requiresAuth(),( req, res ) => {
     db.execute(delete_item_sql, [req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -122,7 +126,7 @@ const create_item_sql = `
     VALUES
         (?, ?, ?)
 `
-app.post("/stuff", ( req, res ) => {
+app.post("/stuff", requiresAuth(),( req, res ) => {
     db.execute(create_item_sql, [req.body.country_name, req.body.country_population, req.body.country_gdp], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -143,7 +147,7 @@ const update_item_sql = `
     WHERE
         CountryID = ?
 `
-app.post("/stuff/item/:id", ( req, res ) => {
+app.post("/stuff/item/:id", requiresAuth(),( req, res ) => {
     db.execute(update_item_sql, [req.body.name, req.body.population, req.body.gdp, req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
