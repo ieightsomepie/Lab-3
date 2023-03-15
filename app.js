@@ -14,8 +14,6 @@ app.use(helmet({
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", 'cdnjs.cloudflare.com'],
-        styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
-        fontSrc: ["'self'", 'fonts.googleapis.com']
       }
     }
 })); 
@@ -52,9 +50,9 @@ app.use( express.urlencoded({ extended: false }) );
 // define middleware that serves static resources in the public directory
 app.use(express.static(__dirname + '/public'));
 // req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
+app.get('/authtest', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
+  });
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
     res.render('index');
@@ -145,18 +143,18 @@ app.post("/stuff", requiresAuth(),( req, res ) => {
 // define a route for item UPDATE
 const update_item_sql = `
     UPDATE
-        Countries
+        stuff
     SET
-        country_name = ?,
-        country_population = ?,
-        country_gdp = ?
+        item = ?,
+        quantity = ?,
+        description = ?
     WHERE
-        CountryID = ?
+        id = ?
     AND
         userid = ?
 `
-app.post("/stuff/item/:id", requiresAuth(),( req, res ) => {
-    db.execute(update_item_sql, [req.body.name, req.body.population, req.body.gdp, req.params.id, req.oidc.user.email], (error, results) => {
+app.post("/stuff/item/:id", requiresAuth(), ( req, res ) => {
+    db.execute(update_item_sql, [req.body.name, req.body.quantity, req.body.description, req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
